@@ -7,26 +7,35 @@
         display: block;
       }
 
-    #customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+     :root {
+        --red-marvel: #F01720;
+        --iron-color: #B77E27;
+        --hulk-color: #A8BF6F;
+        --title-size: 25px;
+        --text-size: 16px;
+      }
+
+    #tablepolymer {
+      cursor: pointer;
+    font-family: 'Marvel', sans-serif;
     border-collapse: collapse;
     width: 100%;
     }
 
-    #customers td, #customers th {
+    #tablepolymer td, #tablepolymer th {
         border: 1px solid #ddd;
         padding: 8px;
     }
 
-    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    #tablepolymer tr:nth-child(even){background-color: var(--hulk-color);}
 
-    #customers tr:hover {background-color: #ddd;}
+    #tablepolymer tr:hover {background-color: var(--iron-color);}
 
-    #customers th {
+    #tablepolymer th {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
-        background-color: #4CAF50;
+        background-color: var(--red-marvel);;
         color: white;
     }
 
@@ -37,24 +46,24 @@
 
     }
     </style>
-  <table id="customers" class="alltable">
-  <tr class="cell" style="order:0;"><th>Super heroes</th></tr>
+  <table id="tablepolymer">
+  <tr><th>Super heroes</th></tr>
   <tr>
-    <th style="order:1;">Nickname</th>
+    <th>Nickname</th>
     <th>Name</th>
     <th>Last name</th>
   </tr>
   <tr >
-    <td style="order:2;">Hulk</td>
-    <td style="order:3;">Bruce</td>
-    <td style="order:4;">Banner</td>
+    <td>Hulk</td>
+    <td>Bruce</td>
+    <td>Banner</td>
   </tr>
-  <tr style="order:3;">
+  <tr>
     <td>Spiderman</td>
     <td>Peter</td>
     <td>Parker</td>
   </tr>
-  <tr style="order:4;">
+  <tr>
     <td>Daredevil</td>
     <td>Matt</td>
     <td>Murdock</td>
