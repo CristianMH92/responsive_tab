@@ -103,17 +103,15 @@
       }
 
             createDescription(event){
-              var tabla = this.querySelector('#myTable');
+              const tabla = document.querySelector('#myTable');
               let table_content = '';
               for(let title in this.tableSection){
                 table_content = '<table>';
                   table_content += '<th>${{title}}</th>';
                 for(let description in this.tableSection[title]){
                     table_content += '<tr>${{this.tableSection[title][description]}}</tr><tr>';
-
                   for(let column in this.tableSection[title][description]){
                     table_content += '<td>{{this.tableSection[title][description][column]}}</td>';
-                    console.log(table_content);
                   }table_content += '</tr>';
                   table_content += '</table>';
                   tabla.innerHTML= table_content; 
