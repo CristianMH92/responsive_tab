@@ -12,8 +12,11 @@
                 --iron-color: #B77E27;
                 --hulk-color: #A8BF6F;
                 --captain-marvel-color: #03A9F4;
+                --blue-spider:#0C6DA6;
+                --thanos-color:#F7C3D1;
+                --line-color:#E6B125;
                 --title-size: 25px;
-                --text-size: 16px;
+                --text-size: 20px;
             }
 
             #table {
@@ -21,10 +24,12 @@
                 font-family: 'Marvel', sans-serif;
                 border-collapse: collapse;
                 width: 100%;
+                font-size: var(--text-size);
+
             }
 
             #table td, #table th {
-                border: 1px solid #ddd;
+                border: 1px solid var(--line-color);
                 padding: 8px;
             }
 
@@ -40,12 +45,12 @@
                 padding-top: 12px;
                 padding-bottom: 12px;
                 text-align: left;
-                background-color: var(--red-marvel);;
+                background-color: var(--red-marvel);
                 color: white;
             }
 
             #table .main {
-                background-color: var(--captain-marvel-color, #03A9F4);;
+                background-color: var(--captain-marvel-color);
             }
 
             table {
@@ -64,16 +69,52 @@
             .mobile-row {
                 display: flex;
                 flex-direction: row;
+                background-color: var(--thanos-color);
+                width: 100%;
+            }
+            .mobile-row p{
+                text-align: center;
             }
 
-            .mobile-column {
+            .mobile-column   {
                 display: flex;
                 flex-direction: column;
+                width: 100%;
+                border: 1px solid var(--line-color);
+
+
+            }
+
+            @media only screen and (max-width: 500px) {
+                table{
+                    border-collapse: separate;
+                    border-spacing: 15px 15px;
+                }
+                #table .header {
+                     background-color: var(--red-marvel);
+
+ 
+                }
+                #table td, #table th {
+                border: 1px solid var(--line-color);
+                padding: 4px;
+                }
+                #table > tr {
+                    padding: 0 15px;
+                    background-color: var(--red-marvel);
+
+                
+                }
+
+                #table tr:nth-child(even) {
+                background-color: var(--blue-spider);
+                }
+
             }
         </style>
 
         <div id='table'>
-            <template is="dom-if" if="[[!isMobile]]">
+           <template is="dom-if" if="[[!isMobile]]">
                 <table>
                     <tr>
                         <th class="header main" colspan$="[[tableSection.headers.length]]">[[tableSection.title]]</th>
@@ -92,7 +133,7 @@
                     </template>
                 </table>
             </template>
-
+            
             <template is="dom-if" if="[[isMobile]]">
                 <table>
                     <tr>
