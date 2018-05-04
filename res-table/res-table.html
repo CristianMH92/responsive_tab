@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="res-table">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #myTable{
+      border: 1px solid red;
+      }
+    </style>
+    <table id='myTable'>
+                       <section class="">
+                <div id="container" class="container">
+                    <template is="dom-repeat" items="[[tableSection]]" as="section" on-dom-change="createDescription">
+                       <table id='myTable'>
+                        <caption>Title</caption>
+                            <tr>
+                                <td>
+                                    <a href="">[[section.name]]</a>
+                                </td>
+                                <td>
+                                    <a href="">[[section.lastname]]</a>
+                                </td>
+                                <td>
+                                    <a href="">[[section.datetoday]]</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </template>
+                </div>
+            </section>
+    </table>
+  </template>
+
+  <script>
+    /**
+     * `res-table`
+     * responsive table
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ResTable extends Polymer.Element {
+      static get is() { return 'res-table'; }
+      static get properties() {
+        return {
+          tableSection:{
+            type: Array,
+            value: []
+          }
+        };
+      }
+
+            createDescription(event){
+                for(let index = 0; index < this.tableSection.length; index++ ){
+                    this.$.container.querySelector(`#id-${index}`).innerHTML = this.tableSection[index].description;
+                }
+            }
+    }
+
+    window.customElements.define(ResTable.is, ResTable);
+  </script>
+</dom-module>
