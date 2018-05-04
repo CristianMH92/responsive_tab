@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
@@ -13,24 +13,26 @@
     <link rel="import" href="../res-table.html">
 
     <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+        </style>
     </custom-style>
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h1>Cristian</h1>
-      <h3>Basic res-table demo</h3>
-      <demo-snippet>
+</head>
+<body>
+<div class="vertical-section-container centered">
+    <h1>Cristian</h1>
+    <h3>Basic res-table demo</h3>
+    <demo-snippet>
         <template>
-          <res-table table-section='{ "Marvel":[
-                            {"name": "Hulk", "lastname": "Bruce", "datetoday": "Banner"},
-                            {"name": "Spiderman", "lastname": "Peter", "datetoday": "Parker"},
-                            {"name": "Daredevil", "lastname": "Matt", "datetoday": "Murdock"}
-                            ]}'>
-          </res-table>
+            <res-table table-section='{
+                "title": "Marvel",
+                "headers": ["name", "lastname", "datetoday"],
+                "rows" : [["Hulk", "Bruce", "Banner"],
+                         ["Spiderman","Peter", "Parker"],
+                         ["Daredevil", "Matt", "Murdock"]]
+                }'>
+            </res-table>
         </template>
-      </demo-snippet>
-    </div>
-  </body>
+    </demo-snippet>
+</div>
+</body>
 </html>

@@ -1,126 +1,171 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <dom-module id="res-table">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-
-     :root {
-        --red-marvel: #F01720;
-        --iron-color: #B77E27;
-        --hulk-color: #A8BF6F;
-        --title-size: 25px;
-        --text-size: 16px;
-      }
-
-    #tablepolymer {
-      cursor: pointer;
-    font-family: 'Marvel', sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    }
-
-    #tablepolymer td, #tablepolymer th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-
-    #tablepolymer tr:nth-child(even){background-color: var(--hulk-color);}
-
-    #tablepolymer tr:hover {background-color: var(--iron-color);}
-
-    #tablepolymer th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: var(--red-marvel);;
-        color: white;
-    }
-
-    @media all and (max-width: 1000px) {
-      table  {display: block;}
-      table > tr { width: 100% !important; }
-      table  > th { margin-bottom: 1em; }
-
-    }
-    </style>
-  <table id="tablepolymer">
-  <tr><th>Super heroes</th></tr>
-  <tr>
-    <th>Nickname</th>
-    <th>Name</th>
-    <th>Last name</th>
-  </tr>
-  <tr >
-    <td>Hulk</td>
-    <td>Bruce</td>
-    <td>Banner</td>
-  </tr>
-  <tr>
-    <td>Spiderman</td>
-    <td>Peter</td>
-    <td>Parker</td>
-  </tr>
-  <tr>
-    <td>Daredevil</td>
-    <td>Matt</td>
-    <td>Murdock</td>
-  </tr>
-</table>
-<template is="dom-repeat" items="[[tableSection]]" as="section" on-dom-change="createDescription">
-<div id='myTable'>
-           <!-- <tr>
-                <td>
-                    Key
-                </td>
-                <td>
-                    LO
-                </td>
-            </tr>-->
-</div>
-  </template>
-</template>
-  <script>
-    /**
-     * `res-table`
-     * responsive table
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class ResTable extends Polymer.Element {
-      static get is() { return 'res-table'; }
-      static get properties() {
-        return {
-          tableSection:{
-            type: Array,
-            value: []
-          }
-        };
-      }
-
-            createDescription(event){
-              const tabla = document.querySelector('#myTable');
-              let table_content = '';
-              for(let title in this.tableSection){
-                table_content = '<table>';
-                  table_content += '<th>${{title}}</th>';
-                for(let description in this.tableSection[title]){
-                    table_content += '<tr>${{this.tableSection[title][description]}}</tr><tr>';
-                  for(let column in this.tableSection[title][description]){
-                    table_content += '<td>{{this.tableSection[title][description][column]}}</td>';
-                  }table_content += '</tr>';
-                  table_content += '</table>';
-                  tabla.innerHTML= table_content; 
-                }
-            } 
+    <template>
+        <style>
+            :host {
+                display: block;
             }
-  
-    }
 
-    window.customElements.define(ResTable.is, ResTable);
-  </script>
+            :root {
+                --red-marvel: #F01720;
+                --iron-color: #B77E27;
+                --hulk-color: #A8BF6F;
+                --captain-marvel-color: #03A9F4;
+                --title-size: 25px;
+                --text-size: 16px;
+            }
+
+            #table {
+                cursor: pointer;
+                font-family: 'Marvel', sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #table td, #table th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #table tr:nth-child(even) {
+                background-color: var(--hulk-color);
+            }
+
+            #table tr:hover {
+                background-color: var(--iron-color);
+            }
+
+            #table .header {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: var(--red-marvel);;
+                color: white;
+            }
+
+            #table .main {
+                background-color: var(--captain-marvel-color, #03A9F4);;
+            }
+
+            table {
+                width: 100%;
+                display: block;
+            }
+
+            table > tr {
+                width: 100% !important;
+            }
+
+            table > th {
+                margin-bottom: 1em;
+            }
+
+            .mobile-row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .mobile-column {
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+
+        <div id='table'>
+            <template is="dom-if" if="[[!isMobile]]">
+                <table>
+                    <tr>
+                        <th class="header main" colspan$="[[tableSection.headers.length]]">[[tableSection.title]]</th>
+                    </tr>
+                    <tr>
+                        <template is="dom-repeat" items="[[tableSection.headers]]" as="header">
+                            <td class="header">[[header]]</td>
+                        </template>
+                    </tr>
+                    <template is="dom-repeat" items="[[tableSection.rows]]" as="row">
+                        <tr>
+                            <template is="dom-repeat" items="[[row]]" as="item">
+                                <td>[[item]]</td>
+                            </template>
+                        </tr>
+                    </template>
+                </table>
+            </template>
+
+            <template is="dom-if" if="[[isMobile]]">
+                <table>
+                    <tr>
+                        <th class="header main" colspan="2">[[tableSection.title]]</th>
+                    </tr>
+                    <template is="dom-repeat" items="[[tableSection.rows]]" as="row">
+                        <tr>
+                            <td>
+                                <div class="mobile-row">
+                                    <div class="mobile-column">
+                                        <template is="dom-repeat" items="[[tableSection.headers]]" as="header">
+                                            <p>[[header]]</p>
+                                        </template>
+                                    </div>
+                                    <div class="mobile-column">
+                                        <template is="dom-repeat" items="[[row]]" as="item">
+                                            <p>[[item]]</p>
+                                        </template>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </table>
+            </template>
+        </div>
+    </template>
+    <script>
+        /**
+         * `res-table`
+         * responsive table
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class ResTable extends Polymer.Element {
+            static get is() {
+                return 'res-table';
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+
+                window.addEventListener('resize', (event) => {
+                    this._responsive();
+                });
+
+                this._responsive();
+            }
+
+            static get properties() {
+                return {
+                    tableSection: {
+                        type: Object,
+                        value: {}
+                    },
+                    isMobile: {
+                        type: Boolean,
+                        value: false
+                    }
+                };
+            }
+
+            _responsive() {
+                if (this.$.table.clientWidth < 500) {
+                    this.set('isMobile', true);
+                } else {
+                    this.set('isMobile', false);
+                }
+            }
+        }
+
+        window.customElements.define(ResTable.is, ResTable);
+    </script>
 </dom-module>
